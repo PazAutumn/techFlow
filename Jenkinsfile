@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Start server') {
             steps {
-                sh 'json-server --watch db.json'
+                sh './node_modules/.bin/json-server --watch db.json'
             }
         }
         stage('Run tests') {
