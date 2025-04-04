@@ -12,11 +12,12 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 sh 'npm install'
+                sh 'ls node_modules/.bin/json-server || echo "json-server not found!"'
             }
         }
         stage('Start server') {
             steps {
-                sh './node_modules/.bin/json-server --watch db.json'
+                sh 'npx json-server --watch db.json'
             }
         }
         stage('Run tests') {
