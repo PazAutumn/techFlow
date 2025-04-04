@@ -1,0 +1,167 @@
+Lanzada por el usuario admin
+Obtained Jenkinsfile from git https://github.com/PazAutumn/techFlow
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins  in /Users/pazcontreras/.jenkins/workspace/techFlow
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /Users/pazcontreras/.jenkins/workspace/techFlow/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/PazAutumn/techFlow # timeout=10
+Fetching upstream changes from https://github.com/PazAutumn/techFlow
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5 (Apple Git-154)'
+ > git fetch --tags --force --progress -- https://github.com/PazAutumn/techFlow +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision a598b693570fbbf864f99aac067c7e8ef04ca095 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a598b693570fbbf864f99aac067c7e8ef04ca095 # timeout=10
+Commit message: "Fix Jenkinsfile syntax errors"
+ > git rev-list --no-walk 49ed2cb63c6c625204618faa72e1facbd79d8d00 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clone repository)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential techFlow
+ > git rev-parse --resolve-git-dir /Users/pazcontreras/.jenkins/workspace/techFlow/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/PazAutumn/techFlow.git # timeout=10
+Fetching upstream changes from https://github.com/PazAutumn/techFlow.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5 (Apple Git-154)'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/PazAutumn/techFlow.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision a598b693570fbbf864f99aac067c7e8ef04ca095 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a598b693570fbbf864f99aac067c7e8ef04ca095 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master a598b693570fbbf864f99aac067c7e8ef04ca095 # timeout=10
+Commit message: "Fix Jenkinsfile syntax errors"
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install dependencies)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ npm install
+
+up to date, audited 357 packages in 2s
+
+48 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[Pipeline] sh
++ ls node_modules/.bin/json-server
+ls: node_modules/.bin/json-server: No such file or directory
++ echo 'json-server not found!'
+json-server not found!
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Start server)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ lsof -ti :3000
++ xargs kill -9
+[Pipeline] sh
++ npx json-server --watch db.json --port 3000
+[Pipeline] sh
++ sleep 3
+[Pipeline] sh
++ curl -s http://localhost:3000/users
+[
+  {
+    "id": "1",
+    "name": "Alice",
+    "email": "alice@example.com"
+  },
+  {
+    "id": "2",
+    "name": "Bob",
+    "email": "bob@example.com"
+  }
+]
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run tests)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ npm test
+
+> ci_pipeline_project@1.0.0 test
+> jest
+
+PASS tests/app.test.js
+  API Tests
+    ✓ should return a list of users (34 ms)
+    ✓ should return a single user (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        4.623 s
+Ran all test suites.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
++ lsof -ti :3000
++ xargs kill -9
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
