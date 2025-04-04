@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git 'https://github.com/tu_usuario/tu_repositorio.git'
+                git credentialsId: '9547381d-6b8e-42fc-938c-9e06164d2e97', url: 'https://github.com/PazAutumn/techFlow.git'
             }
         }
         stage('Install dependencies') {
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                sh 'npm test > test-results.txt'
+                sh 'npm test'
             }
         }
     }
