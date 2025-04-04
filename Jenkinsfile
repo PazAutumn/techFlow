@@ -37,11 +37,11 @@ pipeline {
                 sh 'npm test'
             }
         }
-        post {
-            always {
-                // Kill the server after tests (even if tests fail)
-                sh 'lsof -ti :3000 | xargs kill -9 || true'
-            }
+    }
+     post {
+        always {
+            // Kill the server after tests (even if tests fail)
+            sh 'lsof -ti :3000 | xargs kill -9 || true'
         }
     }
 }
