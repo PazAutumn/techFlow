@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git credentialsId: '9547381d-6b8e-42fc-938c-9e06164d2e97', url: 'https://github.com/PazAutumn/techFlow.git'
+                git credentialsId: 'techFlow', url: 'https://github.com/PazAutumn/techFlow.git'
             }
         }
         stage('Install dependencies') {
