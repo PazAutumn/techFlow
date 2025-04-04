@@ -18,9 +18,6 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                sh 'npm test'
-            }
-            steps {
                 sh 'npm test > test-results.txt'
             }
         }
